@@ -1,3 +1,8 @@
 #!/bin/sh
+BUILD_DIR=$1
 
-eval "hexo generate"
+cd BUILD_DIR
+
+echo "-----> hexo project path ${BUILD_DIR}"
+
+hexo generate
