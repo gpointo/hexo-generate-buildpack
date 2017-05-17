@@ -1,12 +1,15 @@
 #!/bin/sh
-BUILD_DIR=$1
-CACHE_DIR=$2
-ENV_DIR=$3
+build_dir=$1
 
-cd "$BUILD_DIR"
+env_dir=$3
+whitelist_regex='^(CI_BUILD_REF_NAME|STAGING_API_URL|STAGING_WEB_INSIDE_URL|PRODUCTION_API_URL|PRODUCTION_WEB_INSIDE_URL)$'
+if [ -d "$env_dir" ]; then
+  for e in $(ls $env_dir); do
+    echo "$e" | grep -E "$whitelist_regex" && export "$e=$(cat $env_dir/$e)"
+    :
+  done
+fi
 
-echo "-----> BUILD_DIR: ${BUILD_DIR}"
-echo "-----> CACHE_DIR: ${CACHE_DIR}"
-echo "-----> ENV_DIR: ${ENV_DIR}"
+cd "$build_dir"
 
 hexo generate
