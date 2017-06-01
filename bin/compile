@@ -2,7 +2,7 @@
 build_dir=$1
 
 env_dir=$3
-whitelist_regex='^(CI_BUILD_REF_NAME|STAGING_API_URL|STAGING_WEB_INSIDE_URL|PRODUCTION_API_URL|PRODUCTION_WEB_INSIDE_URL)$'
+whitelist_regex='^(CI_BUILD_REF_NAME|STAGING_API_URL|STAGING_WEB_INSIDE_URL|PRODUCTION_API_URL|PRODUCTION_WEB_INSIDE_URL|PRODUCTION_GTM_ID)$'
 if [ -d "$env_dir" ]; then
   for e in $(ls $env_dir); do
     echo "$e" | grep -E "$whitelist_regex" && export "$e=$(cat $env_dir/$e)"
